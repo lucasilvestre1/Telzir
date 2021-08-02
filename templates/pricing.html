@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Simule aqui quanto irá pagar pelas suas ligações!</h1>
+    </br>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.origin_city.label }}
+        {{ form.origin_city() }}
+
+        {{ form.destiny_city.label }}
+        {{ form.destiny_city() }}
+
+        {{ form.submit() }}
+    </form>
+    <!--{% for city in cities %}
+        <a href="#">
+            <h2>{{ city['name'] }}</h2>
+        </a>
+        <span class="badge badge-primary">{{ city['ddd_code'] }}</span>
+    {% endfor %}-->
+{% endblock %}
