@@ -5,13 +5,19 @@
     </br>
     <form method="POST">
         {{ form.hidden_tag() }}
-        {{ form.origin_city.label }}
-        {{ form.origin_city() }}
+        {{ form.origin_city.label(class="form-label") }}
+        {{ form.origin_city(class="form-control") }}
 
-        {{ form.destiny_city.label }}
-        {{ form.destiny_city() }}
+        {{ form.destiny_city.label(class="form-label") }}
+        {{ form.destiny_city(class="form-control") }}
 
-        {{ form.submit() }}
+        {{ form.minutes.label(class="form-label") }}
+        {{ form.minutes(class="form-control") }}
+
+        {{ form.plan.label(class="form-label") }}
+        {{ form.plan(class="form-control") }}
+        </br>
+        {{ form.submit(class="btn btn-primary") }}
     </form>
     <!--{% for city in cities %}
         <a href="#">
