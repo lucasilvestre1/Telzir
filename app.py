@@ -3,6 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import IntegerField, SubmitField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired
+from .seeds.seeds import run_seeds
 from .models.ddd_cities import Cities
 from .models.plans import Plans
 from .database import db
@@ -23,12 +24,9 @@ def register_extensions(app):
 
     with app.app_context():
         db.create_all()
+        run_seeds()
+        # TODO: Insert seeds here
     return None
-
-# app.config['ENV'] = 'development'
-# app.config['SECRET_KEY'] = 'Telzir-Quotation-FaleMais'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///telzir.db'
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 application = create_app()
