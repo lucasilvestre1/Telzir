@@ -1,17 +1,54 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField
+from wtforms import IntegerField, SubmitField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired
-from .models.cities import Cities
+from .models.ddd_cities import Cities
 from .models.plans import Plans
 from .database import db
-# import sqlite3
+from . import settings
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'Telzir-Quotation-FaleMais'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///telzir.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+def create_app(config_object=settings):
+    # create and configure the app
+    app = Flask(__name__)
+    app.config.from_object(config_object)
+    register_extensions(app)
+    return app
+
+
+def register_extensions(app):
+    """Register Flask extensions."""
+    db.init_app(app)
+
+    with app.app_context():
+        db.create_all()
+    return None
+
+# app.config['ENV'] = 'development'
+# app.config['SECRET_KEY'] = 'Telzir-Quotation-FaleMais'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///telzir.db'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+application = create_app()
+
+
+@application.route('/')
+def index():
+    # conn = get_db_connection()
+    # plans = conn.execute('SELECT * FROM plans').fetchall()
+    plans = {}
+    # conn.close()
+    return render_template('index.html', plans=plans)
+
+
+@application.route('/pricing', methods=['GET', 'POST'])
+def pricing():
+    form = PricingForm()
+    if form.validate_on_submit():
+        pass
+    return render_template('pricing.html', form=form)
 
 
 def possible_cities():
@@ -37,28 +74,10 @@ class PricingForm(FlaskForm):
 #     conn.row_factory = sqlite3.Row
 #     return conn
 
-
-@app.route('/')
-def index():
-    # conn = get_db_connection()
-    # plans = conn.execute('SELECT * FROM plans').fetchall()
-    plans = {}
-    # conn.close()
-    return render_template('index.html', plans=plans)
+# db.init_app(app)
 
 
-@app.route('/pricing', methods=['GET', 'POST'])
-def pricing():
-    form = PricingForm()
-    if form.validate_on_submit():
-        pass
-    return render_template('pricing.html', form=form)
-
-
-db.init_app(app)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
 
 

@@ -1,10 +1,11 @@
-# import os
-# # from dotenv import load_dotenv
-# #
-# # load_dotenv()
-#
-# ENV = os.getenv('FLASK_ENV', default='production')
-# DEBUG = ENV == 'development'
-# SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
-# SECRET_KEY = os.getenv('SECRET_KEY', default='Telzir-Quotation-FaleMais')
-# SQLALCHEMY_TRACK_MODIFICATIONS = False
+import os
+from dotenv import load_dotenv, find_dotenv
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+load_dotenv(find_dotenv())
+
+FLASK_ENV = os.getenv('FLASK_ENV')
+DEBUG = FLASK_ENV == 'development'
+SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'telzir.db')
+SECRET_KEY = 'Telzir-Quotation-FaleMais'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
