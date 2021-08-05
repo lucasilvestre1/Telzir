@@ -67,8 +67,9 @@ def pricing():
         if new_price:
             form = PricingForm()
             price = new_price
-            flash('Calculado com sucesso!')
-        normal_price = form.normal_price
+            flash('Calculado Com Sucesso!')
+
+        # TODO: list_view - query all result in price and display as table
     return render_template('pricing.html', form=form, price=price)
 
 

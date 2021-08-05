@@ -2,6 +2,13 @@
 
 {% block content %}
     {% if price %}
+        </br>
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
         <!-- TODO: Create result page here -->
         <!-- TODO: Utilizar essaa tabela para disponibilizar em tela os reultados-->
         <!--<table class="table table-striped table-hover">-->
