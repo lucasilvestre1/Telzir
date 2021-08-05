@@ -3,6 +3,7 @@ from .ddd_cities import create_ddd, delete_ddd, create_cities, delete_cities
 
 
 def run_seeds():
+    """ Delete old seeds before populate """
     delete_plans()
     create_plans()
 

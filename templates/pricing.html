@@ -1,28 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Simule aqui quanto irá pagar pelas suas ligações!</h1>
-    </br>
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        {{ form.origin_city.label(class="form-label") }}
-        {{ form.origin_city(class="form-control") }}
-
-        {{ form.destiny_city.label(class="form-label") }}
-        {{ form.destiny_city(class="form-control") }}
-
-        {{ form.minutes.label(class="form-label") }}
-        {{ form.minutes(class="form-control") }}
-
-        {{ form.plan.label(class="form-label") }}
-        {{ form.plan(class="form-control") }}
-        </br>
-        {{ form.submit(class="btn btn-primary") }}
-    </form>
-    <!--{% for city in cities %}
-        <a href="#">
-            <h2>{{ city['name'] }}</h2>
-        </a>
-        <span class="badge badge-primary">{{ city['ddd_code'] }}</span>
-    {% endfor %}-->
+    {% if price %}
+        <!-- TODO: Create result page here -->
+    {% else %}
+        <header>
+            <div class="pricing-header text-center">
+                <h1>Calcule quanto irá pagar pelas suas ligações!</h1>
+            </div>
+        </header>
+        <div class="container">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                {{ form.origin_city.label(class="form-label") }}
+                {{ form.origin_city(class="form-control") }}
+                </br>
+                {{ form.destiny_city.label(class="form-label") }}
+                {{ form.destiny_city(class="form-control") }}
+                </br>
+                {{ form.minutes.label(class="form-label") }}
+                {{ form.minutes(class="form-control") }}
+                </br>
+                {{ form.plan.label(class="form-label") }}
+                {{ form.plan(class="form-control") }}
+                </br>
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+    {% endif %}
 {% endblock %}

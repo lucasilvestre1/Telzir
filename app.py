@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SubmitField
+from wtforms import IntegerField, SubmitField, DecimalField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired
 from .seeds.seeds import run_seeds
@@ -25,11 +25,15 @@ def register_extensions(app):
     with app.app_context():
         db.create_all()
         run_seeds()
-        # TODO: Insert seeds here
     return None
 
 
 application = create_app()
+
+
+@application.errorhandler(404)
+def not_found(e):
+    return render_template('404.html')
 
 
 @application.route('/')
@@ -44,9 +48,10 @@ def index():
 @application.route('/pricing', methods=['GET', 'POST'])
 def pricing():
     form = PricingForm()
+    price = None
     if form.validate_on_submit():
-        pass
-    return render_template('pricing.html', form=form)
+        price = form.normal_price
+    return render_template('pricing.html', form=form, price=price)
 
 
 def possible_cities():
@@ -65,17 +70,5 @@ class PricingForm(FlaskForm):
     minutes = IntegerField('Quantos minutos de duração', validators=[DataRequired()])
     plan = QuerySelectField('Escolha um plano', validators=[DataRequired()], query_factory=possible_plans)
     submit = SubmitField("Calcular")
-
-
-# def get_db_connection():
-#     conn = sqlite3.connect('database.db')
-#     conn.row_factory = sqlite3.Row
-#     return conn
-
-# db.init_app(app)
-
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
-
-
+    normal_price = DecimalField('Preço normal')
+    falemais_price = DecimalField('Com o FaleMais')
