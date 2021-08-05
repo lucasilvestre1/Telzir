@@ -7,10 +7,10 @@ class Price(db.Model):
     __tablename__ = 'price'
 
     id = db.Column(db.Integer, primary_key=True)
-    origin_city_id = db.Column(db.Integer, db.ForeignKey('cities.id'), nullable=False)
-    destiny_city_id = db.Column(db.Integer, db.ForeignKey('cities.id'), nullable=False)
+    origin_city = db.Column(db.String(60), db.ForeignKey('cities.name'), nullable=False)
+    destiny_city = db.Column(db.String(60), db.ForeignKey('cities.name'), nullable=False)
     minutes = db.Column(db.Integer, nullable=False)
-    plan_id = db.Column(db.Integer, db.ForeignKey('plans.id'), nullable=False)
+    plan = db.Column(db.String(60), db.ForeignKey('plans.name'), nullable=False)
     normal_price = db.Column(db.Float(precision=(7, 2)))
     falemais_price = db.Column(db.Float(precision=(7, 2)))
     valid_call = db.Column(db.Boolean, default=True)
@@ -43,10 +43,10 @@ class Price(db.Model):
         # TODO: HTML precision "%.2f" % round(price, 2) | R$2.2 > R$2.20
 
         new_price = Price(
-            origin_city_id=origin_city_id.id,
-            destiny_city_id=destiny_city_id.id,
+            origin_city=origin_city_id.name,
+            destiny_city=destiny_city_id.name,
             minutes=minutes,
-            plan_id=plan_id.id,
+            plan=plan_id.name,
             normal_price=normal_price,
             falemais_price=falemais_price,
             valid_call=valid_call,
