@@ -1,5 +1,5 @@
-from ..models.ddd_cities import DDD, Cities
 from ..database import db
+from ..models.ddd_cities import DDD, Cities
 
 
 def create_ddd():

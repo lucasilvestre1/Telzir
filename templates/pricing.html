@@ -3,29 +3,54 @@
 {% block content %}
     {% if price %}
         <!-- TODO: Create result page here -->
+        <!-- TODO: Utilizar essaa tabela para disponibilizar em tela os reultados-->
+        <!--<table class="table table-striped table-hover">-->
+        <!--  ...-->
+        <!--</table>-->
+        Cidade de Origem
+        {{ price.origin_city_id.__repr__() }}
+        Cidade de Destino
+        {{ price.destiny_city_id }}
+        Tempo (em minutos)
+        {{ price.minutes }}
+        Plano escolhido
+        {{ price.plan_id }}
+        Com FaleMais
+        {{ price.falemais_price }}
+        Sem FaleMais
+        {{ price.normal_price }}
+
     {% else %}
-        <header>
-            <div class="pricing-header text-center">
-                <h1>Calcule quanto irá pagar pelas suas ligações!</h1>
+        <div class="form-wrapper">
+            <header>
+                </br>
+                <div class="pricing-header text-center">
+                    <h1>Calcule quanto irá pagar pelas suas ligações!</h1>
+                </div>
+            </header>
+            <div class="container">
+                {% for field, errors in form.errors.items() %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{ form[field].label }}:</strong> {{ ', '.join(errors) }}
+                    </div>
+                {% endfor %}
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    {{ form.origin_city.label(class="form-label") }}
+                    {{ form.origin_city(class="form-control") }}
+                    </br>
+                    {{ form.destiny_city.label(class="form-label") }}
+                    {{ form.destiny_city(class="form-control") }}
+                    </br>
+                    {{ form.minutes.label(class="form-label") }}
+                    {{ form.minutes(class="form-control", pattern="^[-+]?[0-9]+$") }}
+                    </br>
+                    {{ form.plan.label(class="form-label") }}
+                    {{ form.plan(class="form-control") }}
+                    </br>
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
             </div>
-        </header>
-        <div class="container">
-            <form method="POST">
-                {{ form.hidden_tag() }}
-                {{ form.origin_city.label(class="form-label") }}
-                {{ form.origin_city(class="form-control") }}
-                </br>
-                {{ form.destiny_city.label(class="form-label") }}
-                {{ form.destiny_city(class="form-control") }}
-                </br>
-                {{ form.minutes.label(class="form-label") }}
-                {{ form.minutes(class="form-control") }}
-                </br>
-                {{ form.plan.label(class="form-label") }}
-                {{ form.plan(class="form-control") }}
-                </br>
-                {{ form.submit(class="btn btn-primary") }}
-            </form>
         </div>
     {% endif %}
 {% endblock %}

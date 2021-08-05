@@ -1,6 +1,6 @@
-from .plans import Plans
-from .ddd_cities import DDD, Cities
-from ..database import db
+from database import db
+from models.ddd_cities import DDD, Cities
+from models.plans import Plans
 
 
 def create_plans():
