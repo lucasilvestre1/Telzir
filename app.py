@@ -37,13 +37,13 @@ def not_found(e):
     return render_template('404.html')
 
 
-@application.route('/')
-def index():
-    plans = {}
-    return render_template('index.html', plans=plans)
+@application.route('/quotes')
+def quotes():
+    all_quotes = Price.query.order_by(Price.create_date.desc()).all()
+    return render_template('quotes.html', quotes=all_quotes, price=Price)
 
 
-@application.route('/pricing', methods=['GET', 'POST'])
+@application.route('/', methods=['GET', 'POST'])
 def pricing():
     form = PricingForm()
     price = None
@@ -57,13 +57,6 @@ def pricing():
         )
         new_price = Price.query.get(new_price.id)
         # https://stackoverflow.com/questions/68584469/represent-foreign-key-as-value-from-another-column-in-the-foreign-table
-        # print('valid_call: %s' % str(new_price.valid_call))
-        # print('falemais_price: %s' % str(new_price.falemais_price))
-        # print('normal_price: %s' % str(new_price.normal_price))
-        # print('create_date: %s' % str(new_price.create_date))
-        # print('plan_id: %s' % str(new_price.plan_id))
-        # print('origin_city_id: %s' % str(new_price.origin_city_id))
-        # print('destiny_city_id: %s' % str(new_price.destiny_city_id))
         if new_price:
             form = PricingForm()
             price = new_price

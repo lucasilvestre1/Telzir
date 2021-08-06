@@ -1,6 +1,6 @@
-from ..models.ddd_cities import DDD
 from ..database import db
 from datetime import datetime
+import locale
 
 
 class Price(db.Model):
@@ -18,6 +18,11 @@ class Price(db.Model):
 
     def __repr__(self):
         return '%s' % str(self.id)
+
+    @staticmethod
+    def get_formatted_price(price):
+        locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+        return locale.currency(price, grouping=True, symbol='R$')
 
     def pricing_quotation(self, origin_city_id, destiny_city_id, minutes, plan_id):
         """
@@ -40,8 +45,6 @@ class Price(db.Model):
             normal_price = 0.00
             falemais_price = 0.00
 
-        # TODO: HTML precision "%.2f" % round(price, 2) | R$2.2 > R$2.20
-
         new_price = Price(
             origin_city=origin_city_id.name,
             destiny_city=destiny_city_id.name,
@@ -59,8 +62,8 @@ class Price(db.Model):
     
     @staticmethod
     def get_ddd(origin_city_id, destiny_city_id):
-        origin_ddd = DDD.query.get(origin_city_id.ddd_code).code
-        destiny_ddd = DDD.query.get(destiny_city_id.ddd_code).code
+        origin_ddd = origin_city_id.ddd_code
+        destiny_ddd = destiny_city_id.ddd_code
 
         return origin_ddd, destiny_ddd
 
