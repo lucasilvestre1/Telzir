@@ -24,13 +24,14 @@ class Price(db.Model):
         locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
         return locale.currency(price, grouping=True, symbol='R$')
 
-    def pricing_quotation(self, origin_city_id, destiny_city_id, minutes, plan_id):
+    def pricing_quotation(self, origin_city_id, destiny_city_id, minutes, plan_id, quote_to_update=False):
         """
         Create Pricing FaleMais-Telzir
         :param obj origin_city_id: City origin
         :param obj destiny_city_id: City destiny
         :param int minutes: minutes quantity
         :param obj plan_id: Plan
+        :param obj quote_to_update: If passed is an update
         :return: Price created
         """
         origin_ddd, destiny_ddd = self.get_ddd(origin_city_id, destiny_city_id)
@@ -45,17 +46,28 @@ class Price(db.Model):
             normal_price = 0.00
             falemais_price = 0.00
 
-        new_price = Price(
-            origin_city=origin_city_id.name,
-            destiny_city=destiny_city_id.name,
-            minutes=minutes,
-            plan=plan_id.name,
-            normal_price=normal_price,
-            falemais_price=falemais_price,
-            valid_call=valid_call,
-        )
+        if not quote_to_update:
+            new_price = Price(
+                origin_city=origin_city_id.name,
+                destiny_city=destiny_city_id.name,
+                minutes=minutes,
+                plan=plan_id.name,
+                normal_price=normal_price,
+                falemais_price=falemais_price,
+                valid_call=valid_call,
+            )
+            db.session.add(new_price)
+        else:
+            quote_to_update.origin_city = origin_city_id.name
+            quote_to_update.destiny_city = destiny_city_id.name
+            quote_to_update.minutes = minutes
+            quote_to_update.plan = plan_id.name
+            quote_to_update.normal_price = normal_price
+            quote_to_update.falemais_price = falemais_price
+            quote_to_update.valid_call = valid_call
+            quote_to_update.create_date = datetime.utcnow()
+            new_price = quote_to_update
 
-        db.session.add(new_price)
         db.session.commit()
 
         return new_price

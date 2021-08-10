@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-3">
+    <header>
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal">Novos planos FaleMais!</h1>
+            <p class="fs-5 text-muted">
+                Com o novo produto FaleMais da Telzir você adquire o plano e fala de graça </br>
+                até um determinado tempo (em minutos) e só paga os minutos excedentes*.
+            </p>
+        </div>
+    </header>
+    <main>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">FaleMais 30</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">R$0<small class="text-muted fw-light">/30min</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>30 minutos de graça</li>
+                        </ul>
+                        <button type="button"
+                                onclick="window.location.href='{{ url_for('pricing_plan', plan=30) }}'"
+                                class="w-100 btn btn-lg btn-outline-primary">
+                            Calcule
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">FaleMais 60</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">R$0<small class="text-muted fw-light">/60min</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>60 minutos de graça</li>
+                        </ul>
+                        <button type="button"
+                                onclick="window.location.href='{{ url_for('pricing_plan', plan=60) }}'"
+                                class="w-100 btn btn-lg btn-outline-primary">
+                            Calcule
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                    <div class="card-header py-3 text-white bg-primary border-primary">
+                        <h4 class="my-0 fw-normal">FaleMais 120</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">R$0<small class="text-muted fw-light">/120min</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>120 minutos de graça</li>
+                        </ul>
+                        <button type="button"
+                                onclick="window.location.href='{{ url_for('pricing_plan', plan=120) }}'"
+                                class="w-100 btn btn-lg btn-outline-primary">
+                            Calcule
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="text-muted">
+        * Os minutos excedentes tem um acréscimo de 10% sobre a tarifa normal do minuto.
+        Verifique as tarifas que utilizamos abaixo:
+        </br>
+        </br>
+        <table class="table table-bordered border-primary">
+            <tr>
+                <th>DDD de Origem</th>
+                <th>DDD de Destino</th>
+                <th>R$/min</th>
+            </tr>
+            <tr>
+                <td>011</td>
+                <td>016</td>
+                <td>1.90</td>
+            </tr>
+            <tr>
+                <td>016</td>
+                <td>011</td>
+                <td>2.90</td>
+            </tr>
+            <tr>
+                <td>011</td>
+                <td>017</td>
+                <td>1.70</td>
+            </tr>
+            <tr>
+                <td>017</td>
+                <td>011</td>
+                <td>2.70</td>
+            </tr>
+            <tr>
+                <td>011</td>
+                <td>018</td>
+                <td>0.90</td>
+            </tr>
+            <tr>
+                <td>018</td>
+                <td>011</td>
+                <td>1.90</td>
+            </tr>
+        </table>
+    </footer>
+</div>
+
+{% endblock %}
