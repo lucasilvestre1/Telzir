@@ -1,6 +1,6 @@
 # Telzir
 
-### Página web para os clientes da empresa calcularem o valor de suas ligações. Aplicação desenvolvida em Python utilizando o framework Flask.
+### Página web para os clientes da Telzir calcularem o valor de suas ligações. Aplicação desenvolvida em Python utilizando o framework Flask.
 
 ***
 ### Inicio
